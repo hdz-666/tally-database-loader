@@ -46,7 +46,7 @@
                         <TYPE>Company</TYPE>
                         <FILTER>FilterActiveCompany</FILTER>
                     </COLLECTION>
-                    <SYSTEM TYPE="Formulae" NAME="FilterActiveCompany">$$IsEqual:##SVCurrentCompany:$Name</SYSTEM>
+                    <SYSTEM TYPE="Formulae" NAME="FilterActiveCompany">$$IsEqual:{targetCompany}:$Name</SYSTEM>
                 </TDLMESSAGE>
             </TDL>
         </DESC>
