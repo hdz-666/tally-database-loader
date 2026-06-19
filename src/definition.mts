@@ -2,6 +2,7 @@ export interface connectionConfig {
     technology: string;
     server: string;
     port: number;
+    dbname?: string;
     schema: string;
     ssl: boolean;
     username: string;

@@ -1,467 +1,431 @@
-create table _diff
-(
- guid varchar(64) not null,
- alterid int
+CREATE TABLE IF NOT EXISTS _diff (
+    guid varchar(64) NOT NULL,
+    alterid integer
 );
 
-create table _delete
-(
- guid varchar(64) not null
+CREATE TABLE IF NOT EXISTS _delete (
+    guid varchar(64) NOT NULL
 );
 
-create table _vchnumber
-(
- guid varchar(64) not null,
- voucher_number varchar(256)
+CREATE TABLE IF NOT EXISTS _vchnumber (
+    guid varchar(64) NOT NULL,
+    voucher_number varchar(256)
 );
 
-create table config
-(
- name nvarchar(64) not null primary key,
- value nvarchar(1024)
+CREATE TABLE IF NOT EXISTS config (
+    name varchar(64) NOT NULL PRIMARY KEY,
+    value varchar(1024)
 );
 
-create table mst_group
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- primary_group nvarchar(1024),
- is_revenue tinyint,
- is_deemedpositive tinyint,
- is_reserved tinyint,
- affects_gross_profit tinyint,
- sort_position int
+CREATE TABLE IF NOT EXISTS mst_group (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    primary_group varchar(1024),
+    is_revenue boolean,
+    is_deemedpositive boolean,
+    is_reserved boolean,
+    affects_gross_profit boolean,
+    sort_position integer
 );
 
-create table mst_ledger
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- alias nvarchar(256),
- description nvarchar(64),
- notes nvarchar(64),
- is_revenue tinyint,
- is_deemedpositive tinyint,
- opening_balance decimal(17,2),
- closing_balance decimal(17,2),
- mailing_name nvarchar(256),
- mailing_address nvarchar(1024),
- mailing_state nvarchar(256),
- mailing_country nvarchar(256),
- mailing_pincode nvarchar(64),
- email nvarchar(256),
- mobile nvarchar(32),
- it_pan nvarchar(64),
- gstn nvarchar(64),
- gst_registration_type nvarchar(64),
- gst_supply_type nvarchar(64),
- gst_duty_head nvarchar(16),
- bank_account_holder nvarchar(256),
- bank_account_number nvarchar(64),
- bank_ifsc nvarchar(64),
- bank_swift nvarchar(64),
- bank_name nvarchar(64),
- bank_branch nvarchar(64),
- bill_credit_period int
+CREATE TABLE IF NOT EXISTS mst_ledger (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    alias varchar(256),
+    description varchar(64),
+    notes varchar(64),
+    is_revenue boolean,
+    is_deemedpositive boolean,
+    opening_balance numeric(17,2),
+    closing_balance numeric(17,2),
+    mailing_name varchar(256),
+    mailing_address varchar(1024),
+    mailing_state varchar(256),
+    mailing_country varchar(256),
+    mailing_pincode varchar(64),
+    email varchar(256),
+    mobile varchar(32),
+    it_pan varchar(64),
+    gstn varchar(64),
+    gst_registration_type varchar(64),
+    gst_supply_type varchar(64),
+    gst_duty_head varchar(16),
+    bank_account_holder varchar(256),
+    bank_account_number varchar(64),
+    bank_ifsc varchar(64),
+    bank_swift varchar(64),
+    bank_name varchar(64),
+    bank_branch varchar(64),
+    bill_credit_period integer
 );
 
-create table mst_vouchertype
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- numbering_method nvarchar(64),
- is_deemedpositive tinyint,
- affects_stock tinyint
+CREATE TABLE IF NOT EXISTS mst_vouchertype (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    numbering_method varchar(64),
+    is_deemedpositive boolean,
+    affects_stock boolean
 );
 
-create table mst_uom
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- formalname nvarchar(256),
- is_simple_unit tinyint,
- base_units nvarchar(1024),
- additional_units nvarchar(1024),
- conversion decimal(15,4)
+CREATE TABLE IF NOT EXISTS mst_uom (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    formalname varchar(256),
+    is_simple_unit boolean,
+    base_units varchar(1024),
+    additional_units varchar(1024),
+    conversion numeric(15,4)
 );
 
-create table mst_godown
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- address nvarchar(1024)
+CREATE TABLE IF NOT EXISTS mst_godown (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    address varchar(1024)
 );
 
-create table mst_stock_category
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64)
+CREATE TABLE IF NOT EXISTS mst_stock_category (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64)
 );
 
-create table mst_stock_group
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64)
+CREATE TABLE IF NOT EXISTS mst_stock_group (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64)
 );
 
-create table mst_stock_item
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- category nvarchar(1024),
- _category varchar(64),
- alias nvarchar(256),
- description nvarchar(64),
- notes nvarchar(64),
- part_number nvarchar(256),
- uom nvarchar(32),
- _uom varchar(64),
- alternate_uom nvarchar(32),
- _alternate_uom varchar(64),
- conversion decimal(15,4),
- opening_balance decimal(15,4),
- opening_rate decimal(15,4),
- opening_value decimal(17,2),
- closing_balance decimal(15,4),
- closing_rate decimal(15,4),
- closing_value decimal(17,2),
- costing_method nvarchar(32),
- gst_type_of_supply nvarchar(32),
- gst_hsn_code nvarchar(64),
- gst_hsn_description nvarchar(256),
- gst_rate decimal(9,4),
- gst_taxability nvarchar(32)
+CREATE TABLE IF NOT EXISTS mst_stock_item (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    category varchar(1024),
+    _category varchar(64),
+    alias varchar(256),
+    description varchar(64),
+    notes varchar(64),
+    part_number varchar(256),
+    uom varchar(32),
+    _uom varchar(64),
+    alternate_uom varchar(32),
+    _alternate_uom varchar(64),
+    conversion numeric(15,4),
+    opening_balance numeric(15,4),
+    opening_rate numeric(15,4),
+    opening_value numeric(17,2),
+    closing_balance numeric(15,4),
+    closing_rate numeric(15,4),
+    closing_value numeric(17,2),
+    costing_method varchar(32),
+    gst_type_of_supply varchar(32),
+    gst_hsn_code varchar(64),
+    gst_hsn_description varchar(256),
+    gst_rate numeric(9,4),
+    gst_taxability varchar(32)
 );
 
-create table mst_cost_category
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- allocate_revenue tinyint,
- allocate_non_revenue tinyint
+CREATE TABLE IF NOT EXISTS mst_cost_category (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    allocate_revenue boolean,
+    allocate_non_revenue boolean
 );
 
-create table mst_cost_centre
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- category nvarchar(1024)
+CREATE TABLE IF NOT EXISTS mst_cost_centre (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    category varchar(1024)
 );
 
-create table mst_attendance_type
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- uom nvarchar(32),
- _uom varchar(64),
- attendance_type nvarchar(64),
- attendance_period nvarchar(64)
+CREATE TABLE IF NOT EXISTS mst_attendance_type (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    uom varchar(32),
+    _uom varchar(64),
+    attendance_type varchar(64),
+    attendance_period varchar(64)
 );
 
-create table mst_employee
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- id_number nvarchar(256),
- date_of_joining date,
- date_of_release date,
- designation nvarchar(64),
- function_role nvarchar(64),
- location nvarchar(256),
- gender nvarchar(32),
- date_of_birth date,
- blood_group nvarchar(32),
- father_mother_name nvarchar(256),
- spouse_name nvarchar(256),
- address nvarchar(256),
- mobile nvarchar(32),
- email nvarchar(64),
- pan nvarchar(32),
- aadhar nvarchar(32),
- uan nvarchar(32),
- pf_number nvarchar(32),
- pf_joining_date date,
- pf_relieving_date date,
- pr_account_number nvarchar(32)
+CREATE TABLE IF NOT EXISTS mst_employee (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    id_number varchar(256),
+    date_of_joining date,
+    date_of_release date,
+    designation varchar(64),
+    function_role varchar(64),
+    location varchar(256),
+    gender varchar(32),
+    date_of_birth date,
+    blood_group varchar(32),
+    father_mother_name varchar(256),
+    spouse_name varchar(256),
+    address varchar(256),
+    mobile varchar(32),
+    email varchar(64),
+    pan varchar(32),
+    aadhar varchar(32),
+    uan varchar(32),
+    pf_number varchar(32),
+    pf_joining_date date,
+    pf_relieving_date date,
+    pr_account_number varchar(32)
 );
 
-create table mst_payhead
-(
- guid varchar(64) not null primary key,
- alterid int,
- name nvarchar(1024),
- parent nvarchar(1024),
- _parent varchar(64),
- payslip_name nvarchar(1024),
- pay_type nvarchar(64),
- income_type nvarchar(64),
- calculation_type nvarchar(32),
- leave_type nvarchar(64),
- calculation_period nvarchar(32)
+CREATE TABLE IF NOT EXISTS mst_payhead (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    name varchar(1024),
+    parent varchar(1024),
+    _parent varchar(64),
+    payslip_name varchar(1024),
+    pay_type varchar(64),
+    income_type varchar(64),
+    calculation_type varchar(32),
+    leave_type varchar(64),
+    calculation_period varchar(32)
 );
 
-create table mst_gst_effective_rate
-(
- item nvarchar(1024),
- _item varchar(64),
- applicable_from date,
- hsn_description nvarchar(256),
- hsn_code nvarchar(64),
- duty_head nvarchar(64),
- rate decimal(9,4),
- rate_per_unit decimal(9,4),
- valuation_type nvarchar(64),
- is_rcm_applicable tinyint,
- nature_of_transaction nvarchar(64),
- nature_of_goods nvarchar(64),
- supply_type nvarchar(64),
- taxability nvarchar(64)
+CREATE TABLE IF NOT EXISTS mst_gst_effective_rate (
+    item varchar(1024),
+    _item varchar(64),
+    applicable_from date,
+    hsn_description varchar(256),
+    hsn_code varchar(64),
+    duty_head varchar(64),
+    rate numeric(9,4),
+    rate_per_unit numeric(9,4),
+    valuation_type varchar(64),
+    is_rcm_applicable boolean,
+    nature_of_transaction varchar(64),
+    nature_of_goods varchar(64),
+    supply_type varchar(64),
+    taxability varchar(64)
 );
 
-create table mst_opening_batch_allocation
-(
- name nvarchar(1024),
- item nvarchar(1024),
- _item varchar(64),
- opening_balance decimal(15,4),
- opening_rate decimal(15,4),
- opening_value decimal(17,2),
- godown nvarchar(1024),
- _godown varchar(64),
- manufactured_on date
+CREATE TABLE IF NOT EXISTS mst_opening_batch_allocation (
+    name varchar(1024),
+    item varchar(1024),
+    _item varchar(64),
+    opening_balance numeric(15,4),
+    opening_rate numeric(15,4),
+    opening_value numeric(17,2),
+    godown varchar(1024),
+    _godown varchar(64),
+    manufactured_on date
 );
 
-create table mst_opening_bill_allocation
-(
- ledger nvarchar(1024),
- _ledger varchar(64),
- opening_balance decimal(17,4),
- bill_date date,
- name nvarchar(1024),
- bill_credit_period int,
- is_advance tinyint
+CREATE TABLE IF NOT EXISTS mst_opening_bill_allocation (
+    ledger varchar(1024),
+    _ledger varchar(64),
+    opening_balance numeric(17,4),
+    bill_date date,
+    name varchar(1024),
+    bill_credit_period integer,
+    is_advance boolean
 );
 
-create table trn_closingstock_ledger
-(
- ledger nvarchar(1024),
- _ledger varchar(64),
- stock_date date,
- stock_value decimal(17,2)
+CREATE TABLE IF NOT EXISTS trn_closingstock_ledger (
+    ledger varchar(1024),
+    _ledger varchar(64),
+    stock_date date,
+    stock_value numeric(17,2)
 );
 
-create table mst_stockitem_standard_cost
-(
- item nvarchar(1024),
- _item varchar(64),
- date date,
- rate decimal(15,4)
+CREATE TABLE IF NOT EXISTS mst_stockitem_standard_cost (
+    item varchar(1024),
+    _item varchar(64),
+    date date,
+    rate numeric(15,4)
 );
 
-create table mst_stockitem_standard_price
-(
- item nvarchar(1024),
- _item varchar(64),
- date date,
- rate decimal(15,4)
+CREATE TABLE IF NOT EXISTS mst_stockitem_standard_price (
+    item varchar(1024),
+    _item varchar(64),
+    date date,
+    rate numeric(15,4)
 );
 
-create table trn_voucher
-(
- guid varchar(64) not null primary key,
- alterid int,
- date date,
- voucher_type nvarchar(1024),
- _voucher_type varchar(64),
- voucher_number nvarchar(64),
- reference_number nvarchar(64),
- reference_date date,
- narration nvarchar(4000),
- party_name nvarchar(256),
- _party_name varchar(64),
- place_of_supply nvarchar(256),
- is_invoice tinyint,
- is_accounting_voucher tinyint,
- is_inventory_voucher tinyint,
- is_order_voucher tinyint
+CREATE TABLE IF NOT EXISTS trn_voucher (
+    guid varchar(64) NOT NULL PRIMARY KEY,
+    alterid integer,
+    date date,
+    voucher_type varchar(1024),
+    _voucher_type varchar(64),
+    voucher_number varchar(64),
+    reference_number varchar(64),
+    reference_date date,
+    narration varchar(4000),
+    party_name varchar(256),
+    _party_name varchar(64),
+    place_of_supply varchar(256),
+    is_invoice boolean,
+    is_accounting_voucher boolean,
+    is_inventory_voucher boolean,
+    is_order_voucher boolean
 );
 
-create table trn_accounting
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- amount decimal(17,2),
- amount_forex decimal(17,2),
- currency nvarchar(16)
+CREATE TABLE IF NOT EXISTS trn_accounting (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    amount numeric(17,2),
+    amount_forex numeric(17,2),
+    currency varchar(16)
 );
 
-create table trn_inventory
-(
- guid varchar(64),
- item nvarchar(1024),
- _item varchar(64),
- quantity decimal(15,4),
- rate decimal(15,4),
- amount decimal(17,2),
- additional_amount decimal(17,2),
- discount_amount decimal(17,2),
- godown nvarchar(1024),
- _godown varchar(64),
- tracking_number nvarchar(256),
- order_number nvarchar(256),
- order_duedate date
+CREATE TABLE IF NOT EXISTS trn_inventory (
+    guid varchar(64),
+    item varchar(1024),
+    _item varchar(64),
+    quantity numeric(15,4),
+    rate numeric(15,4),
+    amount numeric(17,2),
+    additional_amount numeric(17,2),
+    discount_amount numeric(17,2),
+    godown varchar(1024),
+    _godown varchar(64),
+    tracking_number varchar(256),
+    order_number varchar(256),
+    order_duedate date
 );
 
-create table trn_cost_centre
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- costcentre nvarchar(1024),
- _costcentre varchar(64),
- amount decimal(17,2)
+CREATE TABLE IF NOT EXISTS trn_cost_centre (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    costcentre varchar(1024),
+    _costcentre varchar(64),
+    amount numeric(17,2)
 );
 
-create table trn_cost_category_centre
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- costcategory nvarchar(1024),
- _costcategory varchar(64),
- costcentre nvarchar(1024),
- _costcentre varchar(64),
- amount decimal(17,2)
+CREATE TABLE IF NOT EXISTS trn_cost_category_centre (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    costcategory varchar(1024),
+    _costcategory varchar(64),
+    costcentre varchar(1024),
+    _costcentre varchar(64),
+    amount numeric(17,2)
 );
 
-create table trn_cost_inventory_category_centre
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- item nvarchar(1024),
- _item varchar(64),
- costcategory nvarchar(1024),
- _costcategory varchar(64),
- costcentre nvarchar(1024),
- _costcentre varchar(64),
- amount decimal(17,2)
+CREATE TABLE IF NOT EXISTS trn_cost_inventory_category_centre (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    item varchar(1024),
+    _item varchar(64),
+    costcategory varchar(1024),
+    _costcategory varchar(64),
+    costcentre varchar(1024),
+    _costcentre varchar(64),
+    amount numeric(17,2)
 );
 
-create table trn_bill
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- name nvarchar(1024),
- amount decimal(17,2),
- billtype nvarchar(256),
- bill_credit_period int
+CREATE TABLE IF NOT EXISTS trn_bill (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    name varchar(1024),
+    amount numeric(17,2),
+    billtype varchar(256),
+    bill_credit_period integer
 );
 
-create table trn_bank
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- transaction_type nvarchar(32),
- instrument_date date,
- instrument_number nvarchar(1024),
- bank_name nvarchar(64),
- amount decimal(17,2),
- bankers_date date
+CREATE TABLE IF NOT EXISTS trn_bank (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    transaction_type varchar(32),
+    instrument_date date,
+    instrument_number varchar(1024),
+    bank_name varchar(64),
+    amount numeric(17,2),
+    bankers_date date
 );
 
-create table trn_batch
-(
- guid varchar(64),
- item nvarchar(1024),
- _item varchar(64),
- name nvarchar(1024),
- quantity decimal(15,4),
- amount decimal(17,2),
- godown nvarchar(1024),
- _godown varchar(64),
- destination_godown nvarchar(1024),
- _destination_godown varchar(64),
- tracking_number nvarchar(1024)
+CREATE TABLE IF NOT EXISTS trn_batch (
+    guid varchar(64),
+    item varchar(1024),
+    _item varchar(64),
+    name varchar(1024),
+    quantity numeric(15,4),
+    amount numeric(17,2),
+    godown varchar(1024),
+    _godown varchar(64),
+    destination_godown varchar(1024),
+    _destination_godown varchar(64),
+    tracking_number varchar(1024)
 );
 
-create table trn_inventory_additional_cost
-(
- guid varchar(64),
- ledger nvarchar(1024),
- _ledger varchar(64),
- amount decimal(17,2),
- additional_allocation_type nvarchar(32),
- rate_of_invoice_tax decimal(9,4)
+CREATE TABLE IF NOT EXISTS trn_inventory_additional_cost (
+    guid varchar(64),
+    ledger varchar(1024),
+    _ledger varchar(64),
+    amount numeric(17,2),
+    additional_allocation_type varchar(32),
+    rate_of_invoice_tax numeric(9,4)
 );
 
-create table trn_employee
-(
- guid varchar(64),
- category nvarchar(1024),
- _category varchar(64),
- employee_name nvarchar(1024),
- _employee_name varchar(64),
- amount decimal(17,2),
- employee_sort_order int
+CREATE TABLE IF NOT EXISTS trn_employee (
+    guid varchar(64),
+    category varchar(1024),
+    _category varchar(64),
+    employee_name varchar(1024),
+    _employee_name varchar(64),
+    amount numeric(17,2),
+    employee_sort_order integer
 );
 
-create table trn_payhead
-(
- guid varchar(64),
- category nvarchar(1024),
- _category varchar(64),
- employee_name nvarchar(1024),
- _employee_name varchar(64),
- employee_sort_order int,
- payhead_name nvarchar(1024),
- _payhead_name varchar(64),
- payhead_sort_order int,
- amount decimal(17,2)
+CREATE TABLE IF NOT EXISTS trn_payhead (
+    guid varchar(64),
+    category varchar(1024),
+    _category varchar(64),
+    employee_name varchar(1024),
+    _employee_name varchar(64),
+    employee_sort_order integer,
+    payhead_name varchar(1024),
+    _payhead_name varchar(64),
+    payhead_sort_order integer,
+    amount numeric(17,2)
 );
 
-create table trn_attendance
-(
- guid varchar(64),
- employee_name nvarchar(1024),
- _employee_name varchar(64),
- attendancetype_name nvarchar(1024),
- _attendancetype_name varchar(64),
- time_value decimal(17,2),
- type_value decimal(17,2)
+CREATE TABLE IF NOT EXISTS trn_attendance (
+    guid varchar(64),
+    employee_name varchar(1024),
+    _employee_name varchar(64),
+    attendancetype_name varchar(1024),
+    _attendancetype_name varchar(64),
+    time_value numeric(17,2),
+    type_value numeric(17,2)
 );

@@ -31,6 +31,7 @@ class _database {
             if (lstConfigs.has('database-technology')) this.config.technology = lstConfigs.get('database-technology') || '';
             if (lstConfigs.has('database-server')) this.config.server = lstConfigs.get('database-server') || '';
             if (lstConfigs.has('database-port')) this.config.port = parseInt(lstConfigs.get('database-port') || '0');
+            if (lstConfigs.has('database-dbname')) this.config.dbname = lstConfigs.get('database-dbname') || '';
             if (lstConfigs.has('database-schema')) this.config.schema = lstConfigs.get('database-schema') || '';
             if (lstConfigs.has('database-username')) this.config.username = lstConfigs.get('database-username') || '';
             if (lstConfigs.has('database-password')) this.config.password = lstConfigs.get('database-password') || '';
@@ -73,12 +74,13 @@ class _database {
                     this.connectionPoolPostgres = new postgres.Pool({
                         host: this.config.server,
                         port: this.config.port,
-                        database: this.config.schema,
+                        database: this.config.dbname || this.config.schema,
                         user: this.config.username,
                         password: this.config.password,
                         ssl: !this.config.ssl ? false : {
                             rejectUnauthorized: false
                         },
+                        options: this.config.dbname ? `-c search_path=${this.config.schema}` : undefined,
                     });
                     //validate the credentials by making a connection
                     try {
@@ -497,7 +499,7 @@ class _database {
                     }
                 }
                 else if (this.config.technology == 'postgres') {
-                    let sqlQuery = `select TABLE_NAME from INFORMATION_SCHEMA.TABLES where TABLE_CATALOG = '${this.config.schema}' and TABLE_TYPE = 'BASE TABLE' order by TABLE_NAME`;
+                    let sqlQuery = `select TABLE_NAME from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = '${this.config.schema}' and TABLE_TYPE = 'BASE TABLE' order by TABLE_NAME`;
                     let result = await this.executePostgres(sqlQuery);
                     for (const row of result.data) {
                         retval.push(row[0]);
