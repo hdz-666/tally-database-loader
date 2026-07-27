@@ -1,4 +1,7 @@
-﻿CREATE TABLE IF NOT EXISTS config (
+CREATE SCHEMA IF NOT EXISTS tallydb;
+SET search_path TO tallydb;
+
+CREATE TABLE IF NOT EXISTS config (
     name varchar(64) PRIMARY KEY,
     value varchar(1024)
 );
@@ -353,9 +356,8 @@ CREATE TABLE IF NOT EXISTS trn_attendance (
     type_value numeric(17,2)
 );
 
-CREATE INDEX idx_trn_voucher_date ON trn_voucher(date);
-CREATE INDEX idx_trn_accounting_guid ON trn_accounting(guid);
-CREATE INDEX idx_trn_inventory_guid ON trn_inventory(guid);
-CREATE INDEX idx_mst_ledger_name ON mst_ledger(name);
-CREATE INDEX idx_mst_stock_item_name ON mst_stock_item(name);
-
+CREATE INDEX IF NOT EXISTS idx_trn_voucher_date ON trn_voucher(date);
+CREATE INDEX IF NOT EXISTS idx_trn_accounting_guid ON trn_accounting(guid);
+CREATE INDEX IF NOT EXISTS idx_trn_inventory_guid ON trn_inventory(guid);
+CREATE INDEX IF NOT EXISTS idx_mst_ledger_name ON mst_ledger(name);
+CREATE INDEX IF NOT EXISTS idx_mst_stock_item_name ON mst_stock_item(name);
