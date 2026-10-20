@@ -12,4 +12,4 @@ error-log.txt
 bigquery-credentials.json
 adls-config.json
 dummy.txt
-./config.json
+config.json
